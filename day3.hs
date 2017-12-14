@@ -1,4 +1,5 @@
 type Point = (Int, Int)
+type Cell = (Int, Point)
 
 move :: Point -> Point
 move (x, y)
@@ -19,8 +20,27 @@ dist n = abs x + abs y
     where (x, y) = step (n - 1) (0, 0)
 
 
+adjacent :: Point -> Point -> Bool
+adjacent (x, y) (x', y') = not (x == x' && y == y') && dx <= 1 && dy <= 1
+    where dx = abs (x' - x)
+          dy = abs (y' - y)
+
+
+next :: [Cell] -> [Cell]
+next xs = (nx, np):xs
+    where (_, pp) = head xs
+          np = move pp
+          nx = sum $ [x | (x, p) <- xs, adjacent p np]
+
+
+memory :: [Cell]
+memory = map head $ iterate next [(1, (0, 0))]
+
+
 main :: IO ()
 main = do
   puzzle <- getLine
-  putStrLn $ "Part one " ++ show (dist (read puzzle))
-  putStrLn $ "Part two " ++ "not implemented yet."
+  let p = read puzzle
+  putStrLn $ "Part one " ++ show (dist p)
+  putStr "Part two "
+  putStrLn $ show $ head $ take 1 [x | (x, _) <- memory, x > p]
