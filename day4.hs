@@ -1,4 +1,5 @@
 import Data.List
+import Control.Monad
 import qualified Data.Set as Set
 
 
@@ -16,7 +17,8 @@ anagrams = concatMap $ dedup . permutations
 
 main :: IO ()
 main = do
-  puzzle <- getContents
-  let p = lines puzzle
-  putStrLn $ "Part one " ++ (show $ length $ filter (dups . words) p)
-  putStrLn $ "Part two " ++ (show $ length $ filter (dups . anagrams . words) p)
+  puzzle <- lines `liftM` getContents
+  putStr "Part one "
+  putStrLn $ show $ length $ filter (dups . words) puzzle
+  putStr "Part two "
+  putStrLn $ show $ length $ filter (dups . anagrams . words) puzzle

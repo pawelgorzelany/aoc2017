@@ -1,3 +1,4 @@
+import Control.Monad
 import Data.List
 
 -- part one
@@ -15,7 +16,6 @@ checksum f input = sum $ map f input
 
 main :: IO ()
 main = do
-  puzzle <- getContents
-  let content = (map ((map read) . words) . lines) puzzle
-  putStrLn $ "Part one " ++ show (checksum diff content)
-  putStrLn $ "Part two " ++ show (checksum evenly content)
+  puzzle <- (map ((map read) . words) . lines) `liftM` getContents
+  putStrLn $ "Part one " ++ show (checksum diff puzzle)
+  putStrLn $ "Part two " ++ show (checksum evenly puzzle)

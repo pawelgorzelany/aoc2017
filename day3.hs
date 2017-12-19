@@ -1,3 +1,5 @@
+import Control.Monad
+
 type Point = (Int, Int)
 type Cell = (Int, Point)
 
@@ -39,8 +41,7 @@ memory = map head $ iterate next [(1, (0, 0))]
 
 main :: IO ()
 main = do
-  puzzle <- getLine
-  let p = read puzzle
-  putStrLn $ "Part one " ++ show (dist p)
+  puzzle <- read `liftM` getLine
+  putStrLn $ "Part one " ++ show (dist puzzle)
   putStr "Part two "
-  putStrLn $ show $ head $ take 1 [x | (x, _) <- memory, x > p]
+  putStrLn $ show $ head $ take 1 [x | (x, _) <- memory, x > puzzle]
