@@ -1,5 +1,7 @@
 *
 !.gitignore
+!.cabal
+!stack.yaml
 !README.md
 !*.hs
 !*.txt
