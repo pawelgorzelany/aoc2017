@@ -45,11 +45,12 @@ balance diff (Node (_, w) children) =
     if balanced then w + diff else balance diff' tree'
         where balanced = (==) 1 $ length $ nub folds
               folds = foldTree addWeights <$> children
-              diff' = minimum folds - maximum folds
+              diff' = same - different
               tree' = case index of
                   Just i -> children !! i
-              different = head . minimumBy (comparing length) . group
-              index = elemIndex (different folds) folds
+              different = head . minimumBy (comparing length) . group $ folds
+              same = head . maximumBy (comparing length) . group $ folds
+              index = elemIndex different folds
 
 
 tree :: [(Name, (Program, Children))] -> Tree Program

@@ -10,7 +10,7 @@ Each file can also be compiled with
 
 and then ran with
 
-    $ cat day<n>-puzzle.txt | day<n>
+    $ cat day<n>-puzzle.txt | ./day<n>
 
 
 The commands above assumes that [stack](http://www.haskellstack.org)

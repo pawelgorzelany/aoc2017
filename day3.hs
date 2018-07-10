@@ -32,7 +32,7 @@ next :: [Cell] -> [Cell]
 next xs = (nx, np):xs
     where (_, pp) = head xs
           np = move pp
-          nx = sum $ [x | (x, p) <- xs, adjacent p np]
+          nx = sum [x | (x, p) <- xs, adjacent p np]
 
 
 memory :: [Cell]
@@ -44,4 +44,4 @@ main = do
   puzzle <- read `liftM` getLine
   putStrLn $ "Part one " ++ show (dist puzzle)
   putStr "Part two "
-  putStrLn $ show $ head $ take 1 [x | (x, _) <- memory, x > puzzle]
+  putStrLn . show . head $ take 1 [x | (x, _) <- memory, x > puzzle]
